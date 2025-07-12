@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+const baseURL = import.meta.env.VITE_BACKEND_BASE_URL;
 // import { Products } from "./AllProducts";
 import axios from "axios";
 const ProductDetails = () => {
@@ -13,8 +14,8 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/api/v1/products/${id}`,
+        const response = await axios.get( `${baseURL}/products/${id}`,
+          
 
           {
             withCredentials: true, // important if your backend is using cookies
@@ -36,8 +37,9 @@ const ProductDetails = () => {
   }, [id]);
   const addToCart = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/cart/add",
+      const response = await axios.post(  
+        `${baseURL}/cart/add`,
+      
         {
           productId: product._id, // your API expects this
           quantity: 1,

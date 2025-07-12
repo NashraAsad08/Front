@@ -3,9 +3,8 @@
 import React from "react";
 import { X, ImagePlus } from "lucide-react";
 import axios from "axios";
-
+const baseURL = import.meta.env.VITE_BACKEND_BASE_URL;
 import { ToastContainer, toast } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
 export default function ProductFormModal({
   product,
@@ -62,7 +61,7 @@ export default function ProductFormModal({
       }
 
       await axios.patch(
-        `http://localhost:3000/api/v1/products/${productId}`,
+        `${baseURL}/products/${productId}`,
         formData,
         {
           withCredentials: true,

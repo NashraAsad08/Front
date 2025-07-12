@@ -7,6 +7,7 @@ import axios from "axios";
 import ProductFormModal from "./UpdateProduct";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+const baseURL = import.meta.env.VITE_BACKEND_BASE_URL;
 export default function FarmerProfile() {
   const navigate = useNavigate();
 
@@ -60,7 +61,7 @@ export default function FarmerProfile() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/v1/products",
+          `${baseURL}/products`,
           { withCredentials: true }
         );
         const allProducts = response.data.data.docs;
@@ -113,7 +114,8 @@ export default function FarmerProfile() {
       formData.append("image", newProduct.image);
       console.log("This is form Data ", formData);
       const response = await axios.post(
-        "http://localhost:3000/api/v1/products",
+        // "http://localhost:3000/api/v1/products"
+        `${baseURL}/products`,
         formData,
         {
           withCredentials: true, // if your backend uses cookies
@@ -151,7 +153,7 @@ export default function FarmerProfile() {
   const confirmDelete = async () => {
     try {
       await axios.delete(
-        `http://localhost:3000/api/v1/products/${productToDeleteIndex}`,
+        `${baseURL}/products/products/${productToDeleteIndex}`,
         {
           withCredentials: true,
         }
@@ -217,7 +219,7 @@ export default function FarmerProfile() {
     if (isEditing) {
       try {
         await axios.patch(
-          "http://localhost:3000/api/v1/users/profile",
+          `${baseURL}/users/profile`,
           {
             fullName: farmerDetails.name,
             phone: farmerDetails.phone,
@@ -246,7 +248,8 @@ export default function FarmerProfile() {
 
     try {
       const response = await axios.patch(
-        "http://localhost:3000/api/v1/users/avatar",
+        `${baseURL}/users/avatar`
+        ,
         formData,
         {
           headers: {
@@ -273,7 +276,8 @@ export default function FarmerProfile() {
     const fetchCurrentUser = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/v1/users/current-user",
+          `${baseURL}/users/current-user`,
+          // "http://localhost:3000/api/v1/users/current-user",
           { withCredentials: true }
         );
         const userData = response.data.data; // adjust if your backend returns differently
